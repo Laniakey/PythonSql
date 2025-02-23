@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error
-def crear_conexion(db_file):
+def crear_conexion(db_students):
+    
     """""
     La funcion 'crear_conexion' creara una base de datos sqlite
     y conectara con ella.
@@ -11,7 +12,7 @@ def crear_conexion(db_file):
     conn = None
     # Intentamos crear nuestra base de datos
     try:
-        conn = sqlite3.connect(db_file)
+        conn = sqlite3.connect(db_students)
         print(sqlite3.version)
     # Si la conexion es exitosa mostramos la version
     except Error as e:
@@ -20,5 +21,7 @@ def crear_conexion(db_file):
     # Una buena practica es siempre cerrar la conexion a la base de datos al finalizar.
     finally:
         if conn:
-            conn. close()
+            conn.close()
     #Cerramos la conexion a la base de datos.
+
+crear_conexion(r'students.db')
