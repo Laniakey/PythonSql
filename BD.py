@@ -13,7 +13,11 @@ def crear_conexion(db_students):
     # Intentamos crear nuestra base de datos
     try:
         conn = sqlite3.connect(db_students)
-        print(sqlite3.version)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Estudiantes")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)
     # Si la conexion es exitosa mostramos la version
     except Error as e:
         print(e)
