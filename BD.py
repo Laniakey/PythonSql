@@ -37,5 +37,5 @@ def agregar_estudiante(nombre,matricula,indice):
     conn.commit()
     cerrar_conexion()
 
-agregar_estudiante("luis","2020-1239",2.4)
+#agregar_estudiante("luis","2020-1239",2.4)
 monstrar_todo()
