@@ -33,9 +33,9 @@ def agregar_estudiante(nombre,matricula,indice):
         print("No se pudo acceder a la conexion")
         return
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Estudiantes (nombre, matricula, indice) VALUES (?,?,?)",[nombre,matricula,indice])
+    cursor.execute("INSERT INTO Estudiantes (nombre, matricula, indice) VALUES (?,?,?)",(nombre,matricula,indice))
+    conn.commit()
     cerrar_conexion()
 
-
-#agregar_estudiante("laicha","2020-1239",2.4)
+agregar_estudiante("luis","2020-1239",2.4)
 monstrar_todo()
