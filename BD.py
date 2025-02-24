@@ -1,31 +1,41 @@
 import sqlite3
 from sqlite3 import Error
-def crear_conexion(db_students):
-    
-    """""
-    La funcion 'crear_conexion' creara una base de datos sqlite
-    y conectara con ella.
-    :param db_file: La ruta y nombre de la base de datos a crear.
-    :return :
-    o es necesario retornar nada.
-    """""
-    conn = None
-    # Intentamos crear nuestra base de datos
+
+conn = None
+BD_NAME = 'students.db'
+
+def crear_conexion():
+    global conn
     try:
-        conn = sqlite3.connect(db_students)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Estudiantes")
-        rows = cursor.fetchall()
-        for row in rows:
-            print(row)
-    # Si la conexion es exitosa mostramos la version
+        conn = sqlite3.connect(BD_NAME)
     except Error as e:
         print(e)
-    #En caso de existir un error podemos recuperarlo.
-    # Una buena practica es siempre cerrar la conexion a la base de datos al finalizar.
-    finally:
-        if conn:
-            conn.close()
-    #Cerramos la conexion a la base de datos.
 
-crear_conexion(r'students.db')
+def cerrar_conexion():
+    global conn
+    conn.close()
+
+def monstrar_todo():
+    crear_conexion()
+    if not conn:
+        print("No se pudo acceder a la conexion")
+        return
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Estudiantes")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    cerrar_conexion()
+
+def agregar_estudiante(nombre,matricula,indice):
+    crear_conexion()
+    if not conn:
+        print("No se pudo acceder a la conexion")
+        return
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Estudiantes (nombre, matricula, indice) VALUES (?,?,?)",[nombre,matricula,indice])
+    cerrar_conexion()
+
+
+#agregar_estudiante("laicha","2020-1239",2.4)
+monstrar_todo()
